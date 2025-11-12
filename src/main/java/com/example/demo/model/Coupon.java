@@ -1,0 +1,27 @@
+package com.example.demo.model;
+
+import java.time.LocalDate;
+
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@NoArgsConstructor
+@SuperBuilder
+public abstract class Coupon {
+    private Long id;
+
+    @NotNull
+    private CouponType type;
+
+    @NotNull
+    private String code;
+
+    private String description;
+
+    @FutureOrPresent
+    private LocalDate expirationDate;
+}

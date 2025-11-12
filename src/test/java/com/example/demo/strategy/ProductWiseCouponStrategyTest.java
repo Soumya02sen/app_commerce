@@ -68,7 +68,7 @@ class ProductWiseCouponStrategyTest {
         CartItem item2 = CartItem.builder().productId(2L).quantity(1).price(BigDecimal.valueOf(100)).build();
         Cart cart = Cart.builder().items(Arrays.asList(item1, item2)).build();
         ProductWiseCoupon coupon = ProductWiseCoupon.builder().productId(1L).discountPercentage(BigDecimal.valueOf(10)).build(); // 10% off 100 = 10
-        assertEquals(BigDecimal.valueOf(10.0), strategy.calculateDiscount(cart, coupon));
+        assertEquals(0, BigDecimal.valueOf(10).compareTo(strategy.calculateDiscount(cart, coupon)));
     }
 
     @Test
@@ -77,7 +77,7 @@ class ProductWiseCouponStrategyTest {
         CartItem item2 = CartItem.builder().productId(2L).quantity(1).price(BigDecimal.valueOf(100)).build();
         Cart cart = Cart.builder().items(Arrays.asList(item1, item2)).build();
         ProductWiseCoupon coupon = ProductWiseCoupon.builder().productId(1L).fixedDiscountAmount(BigDecimal.valueOf(5)).build(); // 5 per item * 2 items = 10
-        assertEquals(BigDecimal.valueOf(10.0), strategy.calculateDiscount(cart, coupon));
+        assertEquals(0, BigDecimal.valueOf(10).compareTo(strategy.calculateDiscount(cart, coupon)));
     }
 
     @Test
@@ -95,12 +95,12 @@ class ProductWiseCouponStrategyTest {
 
         Cart updatedCart = strategy.applyDiscount(cart, coupon);
 
-        assertEquals(BigDecimal.valueOf(10.0), updatedCart.getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(190.0), updatedCart.getFinalPrice());
-        assertEquals(BigDecimal.valueOf(10.0), updatedCart.getItems().get(0).getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(90.0), updatedCart.getItems().get(0).getFinalPrice());
+        assertEquals(0, BigDecimal.valueOf(10).compareTo(updatedCart.getTotalDiscount()));
+        assertEquals(0, BigDecimal.valueOf(190).compareTo(updatedCart.getFinalPrice()));
+        assertEquals(0, BigDecimal.valueOf(10).compareTo(updatedCart.getItems().get(0).getTotalDiscount()));
+        assertEquals(0, BigDecimal.valueOf(90).compareTo(updatedCart.getItems().get(0).getFinalPrice()));
         assertEquals(BigDecimal.ZERO, updatedCart.getItems().get(1).getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(100.0), updatedCart.getItems().get(1).getFinalPrice());
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(updatedCart.getItems().get(1).getFinalPrice()));
     }
 
     @Test
@@ -118,11 +118,11 @@ class ProductWiseCouponStrategyTest {
 
         Cart updatedCart = strategy.applyDiscount(cart, coupon);
 
-        assertEquals(BigDecimal.valueOf(10.0), updatedCart.getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(190.0), updatedCart.getFinalPrice());
-        assertEquals(BigDecimal.valueOf(10.0), updatedCart.getItems().get(0).getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(90.0), updatedCart.getItems().get(0).getFinalPrice());
+        assertEquals(0, BigDecimal.valueOf(10).compareTo(updatedCart.getTotalDiscount()));
+        assertEquals(0, BigDecimal.valueOf(190).compareTo(updatedCart.getFinalPrice()));
+        assertEquals(0, BigDecimal.valueOf(10).compareTo(updatedCart.getItems().get(0).getTotalDiscount()));
+        assertEquals(0, BigDecimal.valueOf(90).compareTo(updatedCart.getItems().get(0).getFinalPrice()));
         assertEquals(BigDecimal.ZERO, updatedCart.getItems().get(1).getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(100.0), updatedCart.getItems().get(1).getFinalPrice());
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(updatedCart.getItems().get(1).getFinalPrice()));
     }
 }

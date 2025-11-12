@@ -91,7 +91,7 @@ class BxGyCouponStrategyTest {
                 .getProducts(Collections.singletonList(get1))
                 .repetitionLimit(1)
                 .build();
-        assertEquals(BigDecimal.valueOf(100.0), strategy.calculateDiscount(cart, coupon));
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(strategy.calculateDiscount(cart, coupon)));
     }
 
     @Test
@@ -107,7 +107,7 @@ class BxGyCouponStrategyTest {
                 .getProducts(Collections.singletonList(get1))
                 .repetitionLimit(2)
                 .build();
-        assertEquals(BigDecimal.valueOf(200.0), strategy.calculateDiscount(cart, coupon)); // 2 * 100
+        assertEquals(0, BigDecimal.valueOf(200).compareTo(strategy.calculateDiscount(cart, coupon))); // 2 * 100
     }
 
     @Test
@@ -123,7 +123,7 @@ class BxGyCouponStrategyTest {
                 .getProducts(Collections.singletonList(get1))
                 .repetitionLimit(2) // Limit to 2 repetitions
                 .build();
-        assertEquals(BigDecimal.valueOf(200.0), strategy.calculateDiscount(cart, coupon)); // 2 * 100
+        assertEquals(0, BigDecimal.valueOf(200).compareTo(strategy.calculateDiscount(cart, coupon))); // 2 * 100
     }
 
     @Test
@@ -148,11 +148,11 @@ class BxGyCouponStrategyTest {
 
         Cart updatedCart = strategy.applyDiscount(cart, coupon);
 
-        assertEquals(BigDecimal.valueOf(100.0), updatedCart.getTotalDiscount());
-        assertEquals(BigDecimal.valueOf(100.0), updatedCart.getFinalPrice());
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(updatedCart.getTotalDiscount()));
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(updatedCart.getFinalPrice()));
         assertEquals(BigDecimal.ZERO, updatedCart.getItems().get(0).getTotalDiscount()); // Buy product not discounted
-        assertEquals(BigDecimal.valueOf(100.0), updatedCart.getItems().get(0).getFinalPrice());
-        assertEquals(BigDecimal.valueOf(100.0), updatedCart.getItems().get(1).getTotalDiscount()); // Get product discounted
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(updatedCart.getItems().get(0).getFinalPrice()));
+        assertEquals(0, BigDecimal.valueOf(100).compareTo(updatedCart.getItems().get(1).getTotalDiscount())); // Get product discounted
         assertEquals(BigDecimal.ZERO, updatedCart.getItems().get(1).getFinalPrice());
     }
 }

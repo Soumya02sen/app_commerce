@@ -29,8 +29,8 @@ The scope of coupon types can be significantly expanded. Here are some examples 
 ## How to Run the Application
 
 1.  **Prerequisites**:
-    *   Java 17 or higher
-    *   Maven
+    *   Java 17 LTS (OpenJDK recommended)
+    *   Maven 3.8.9 or higher
 
 2.  **Build the project**:
     ```bash
@@ -196,3 +196,113 @@ You can use tools like Postman, Insomnia, or `curl` to interact with the API.
 }
 ```
 Replace `{id}` with the actual coupon ID.
+
+## Test Coverage
+
+The project includes comprehensive test coverage with **49 tests** across multiple test suites:
+
+### Test Results (Java 17 LTS)
+```
+✅ Total Tests: 49
+✅ Passed: 49
+✅ Failed: 0
+✅ Errors: 0
+```
+
+### Test Breakdown
+- **11 Integration Tests** - Controller-level tests using MockMvc
+- **15 Service Tests** - CouponService business logic tests
+- **9 Product-Wise Strategy Tests** - Strategy pattern implementation tests
+- **8 BxGy Strategy Tests** - Buy X Get Y coupon logic tests
+- **6 Cart-Wise Strategy Tests** - Cart-level discount logic tests
+
+### Running Tests
+
+**Run all tests**:
+```bash
+mvn clean test
+```
+
+**Run specific test class**:
+```bash
+mvn test -Dtest=CouponServiceTest
+```
+
+**Run with coverage report** (if plugin configured):
+```bash
+mvn clean test jacoco:report
+```
+
+## Java Version Compatibility
+
+### Current Version
+- **Java 17 LTS** - Fully compatible and tested
+- **Spring Boot 3.3.0** - Verified with Java 17
+- **Lombok 1.18.20** - Compatible with Java 17
+
+### Upgrade Notes
+The project has been upgraded from Java 25 to Java 17 LTS. All code has been validated to work correctly with Java 17, including:
+- ✅ All 49 tests passing
+- ✅ Full compilation without errors
+- ✅ Spring Boot packaging successful
+- ✅ Polymorphic JSON deserialization working correctly
+
+See `implementation.md` for detailed upgrade information.
+
+## Project Structure
+
+```
+app_commerce/
+├── src/
+│   ├── main/
+│   │   └── java/com/example/demo/
+│   │       ├── controller/      # REST API endpoints
+│   │       ├── service/         # Business logic
+│   │       ├── strategy/        # Coupon strategy implementations
+│   │       ├── model/           # Entity classes
+│   │       ├── dto/             # Data transfer objects
+│   │       └── exception/       # Custom exceptions
+│   └── test/
+│       └── java/com/example/demo/
+│           ├── controller/      # Integration tests
+│           ├── service/         # Unit tests
+│           └── strategy/        # Strategy pattern tests
+├── pom.xml                      # Maven configuration
+├── README.md                    # This file
+└── implementation.md            # Detailed implementation notes
+```
+
+## Dependencies
+
+Key dependencies (from Spring Boot 3.3.0 BOM):
+- **spring-boot-starter-web** - Web framework
+- **spring-boot-starter-validation** - Bean validation
+- **spring-boot-starter-actuator** - Monitoring and metrics
+- **spring-boot-starter-test** - Testing framework (JUnit 5, Mockito)
+- **lombok** - Boilerplate reduction
+- **jackson-datatype-jsr310** - Java Time API support
+
+## Known Limitations
+
+1. **In-Memory Storage**: Coupons are stored in-memory using a `ConcurrentHashMap` and are lost when the application restarts. For production use, implement persistent storage (database).
+
+2. **No Authentication/Authorization**: The API does not include user authentication or role-based access control. Implement Spring Security for production deployments.
+
+3. **Limited Product Information**: Product details (price, availability) are not persistent. In a real application, integrate with a Product Service or database.
+
+4. **No Async Processing**: The API is fully synchronous. Consider adding async/reactive APIs for high-traffic scenarios.
+
+5. **No Rate Limiting**: API endpoints are not rate-limited. Implement rate limiting for production environments.
+
+## Future Enhancements
+
+- Database persistence (JPA/Hibernate)
+- User authentication and authorization (Spring Security)
+- API documentation (Swagger/Springdoc OpenAPI)
+- Async endpoints using WebFlux
+- Caching layer (Redis/Caffeine)
+- Rate limiting and throttling
+- Additional coupon types (Category-wise, Shipping, Loyalty, etc.)
+- Batch coupon operations
+- Coupon usage analytics and reporting
+

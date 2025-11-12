@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,13 +71,14 @@ class CouponServiceTest {
             e.printStackTrace();
         }
 
-        when(cartWiseCouponStrategy.getCouponType()).thenReturn(CouponType.CART_WISE);
-        when(productWiseCouponStrategy.getCouponType()).thenReturn(CouponType.PRODUCT_WISE);
-        when(bxGyCouponStrategy.getCouponType()).thenReturn(CouponType.BXGY);
+        // Use lenient() to avoid UnnecessaryStubbingException for unused stubs
+        lenient().when(cartWiseCouponStrategy.getCouponType()).thenReturn(CouponType.CART_WISE);
+        lenient().when(productWiseCouponStrategy.getCouponType()).thenReturn(CouponType.PRODUCT_WISE);
+        lenient().when(bxGyCouponStrategy.getCouponType()).thenReturn(CouponType.BXGY);
 
-        when(couponStrategyFactory.getStrategy(CouponType.CART_WISE)).thenReturn(cartWiseCouponStrategy);
-        when(couponStrategyFactory.getStrategy(CouponType.PRODUCT_WISE)).thenReturn(productWiseCouponStrategy);
-        when(couponStrategyFactory.getStrategy(CouponType.BXGY)).thenReturn(bxGyCouponStrategy);
+        lenient().when(couponStrategyFactory.getStrategy(CouponType.CART_WISE)).thenReturn(cartWiseCouponStrategy);
+        lenient().when(couponStrategyFactory.getStrategy(CouponType.PRODUCT_WISE)).thenReturn(productWiseCouponStrategy);
+        lenient().when(couponStrategyFactory.getStrategy(CouponType.BXGY)).thenReturn(bxGyCouponStrategy);
     }
 
     @Test

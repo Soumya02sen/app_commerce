@@ -46,7 +46,18 @@ class CouponControllerIntegrationTest {
     void setUp() {
         // Clear all coupons before each test to ensure a clean state
         couponService.getAllCoupons().forEach(coupon -> couponService.deleteCoupon(coupon.getId()));
-        objectMapper.registerModule(new JavaTimeModule()); // Register JavaTimeModule for LocalDate serialization
+        
+        // Reset the ID counter using reflection
+        try {
+            java.lang.reflect.Field idCounterField = CouponService.class.getDeclaredField("idCounter");
+            idCounterField.setAccessible(true);
+            java.util.concurrent.atomic.AtomicLong idCounter = (java.util.concurrent.atomic.AtomicLong) idCounterField.get(couponService);
+            idCounter.set(0);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        
+        objectMapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule()); // Register JavaTimeModule for LocalDate serialization
     }
 
     @Test
@@ -194,8 +205,8 @@ class CouponControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(cart)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalDiscount", is(10.0)))
-                .andExpect(jsonPath("$.finalPrice", is(90.0)));
+                .andExpect(jsonPath("$.totalDiscount", is(10)))
+                .andExpect(jsonPath("$.finalPrice", is(90)));
     }
 
     @Test

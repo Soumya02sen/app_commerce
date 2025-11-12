@@ -26,34 +26,6 @@ The scope of coupon types can be significantly expanded. Here are some examples 
 *   **Referral Coupon**: Discount for both referrer and referee.
 *   **Seasonal/Event-Based Coupons**: Coupons valid only during specific holidays or events.
 
-## How to Run the Application
-
-1.  **Prerequisites**:
-    *   Java 17 LTS (OpenJDK recommended)
-    *   Maven 3.8.9 or higher
-
-2.  **Build the project**:
-    ```bash
-    mvn clean install
-    ```
-
-3.  **Run the application**:
-    ```bash
-    mvn spring-boot:run
-    ```
-    The application will start on `http://localhost:8080`.
-
-## How to Test the Code
-
-### Running Unit and Integration Tests
-
-To run all tests (unit and integration), execute the following Maven command:
-
-```bash
-mvn test
-```
-
-This will execute all tests located in `src/test/java`.
 
 ### API Endpoints
 
@@ -233,12 +205,6 @@ mvn test -Dtest=CouponServiceTest
 mvn clean test jacoco:report
 ```
 
-## Java Version Compatibility
-
-### Current Version
-- **Java 17 LTS** - Fully compatible and tested
-- **Spring Boot 3.3.0** - Verified with Java 17
-- **Lombok 1.18.20** - Compatible with Java 17
 
 ### Upgrade Notes
 The project has been upgraded from Java 25 to Java 17 LTS. All code has been validated to work correctly with Java 17, including:
@@ -272,15 +238,6 @@ app_commerce/
 └── implementation.md            # Detailed implementation notes
 ```
 
-## Dependencies
-
-Key dependencies (from Spring Boot 3.3.0 BOM):
-- **spring-boot-starter-web** - Web framework
-- **spring-boot-starter-validation** - Bean validation
-- **spring-boot-starter-actuator** - Monitoring and metrics
-- **spring-boot-starter-test** - Testing framework (JUnit 5, Mockito)
-- **lombok** - Boilerplate reduction
-- **jackson-datatype-jsr310** - Java Time API support
 
 ## Known Limitations
 
@@ -296,11 +253,8 @@ Key dependencies (from Spring Boot 3.3.0 BOM):
 
 ## Future Enhancements
 
-- Database persistence (JPA/Hibernate)
-- User authentication and authorization (Spring Security)
 - API documentation (Swagger/Springdoc OpenAPI)
-- Async endpoints using WebFlux
-- Caching layer (Redis/Caffeine)
+- Caching layer (Redis)
 - Rate limiting and throttling
 - Additional coupon types (Category-wise, Shipping, Loyalty, etc.)
 - Batch coupon operations

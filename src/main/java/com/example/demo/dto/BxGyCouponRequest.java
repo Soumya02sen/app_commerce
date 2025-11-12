@@ -4,10 +4,12 @@ import java.util.List;
 
 import com.example.demo.model.BxGyProductDetail;
 
-import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Data
-public class BxGyCouponRequest implements CouponRequestDTO {
+@NoArgsConstructor
+@SuperBuilder
+public class BxGyCouponRequest extends CouponRequestDTO {
     private List<BxGyProductDetail> buyProducts;
     private List<BxGyProductDetail> getProducts;
     private Integer repetitionLimit;

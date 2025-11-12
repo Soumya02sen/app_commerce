@@ -28,6 +28,10 @@ public class CouponController {
 
     private final CouponService couponService;
 
+    public CouponController(CouponService couponService) {
+        this.couponService = couponService;
+    }
+
     @PostMapping
     public ResponseEntity<CouponResponseDTO> createCoupon(@Valid @RequestBody CouponRequestDTO request) {
         return new ResponseEntity<>(couponService.createCoupon(request), HttpStatus.CREATED);
